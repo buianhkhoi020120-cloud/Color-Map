@@ -1,3 +1,7 @@
+# Họ tên: Bùi Anh Khôi
+# MSSV: 24110258
+# Link Github: https://github.com/buianhkhoi020120-cloud/Color-Map
+
 import sys
 from PyQt5.QtWidgets import (QApplication, QMainWindow, QWidget, QHBoxLayout, QVBoxLayout, 
                              QPushButton, QSlider, QLabel, QListWidget, QGraphicsView, QGraphicsScene, 
