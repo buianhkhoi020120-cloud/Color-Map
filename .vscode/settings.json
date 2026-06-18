@@ -1,0 +1,7 @@
+{
+    "python.defaultInterpreterPath": "python",
+    "python.analysis.useLibraryCodeForTypes": true,
+    "python.analysis.diagnosticSeverityOverrides": {
+        "reportMissingImports": "error"
+    }
+}
