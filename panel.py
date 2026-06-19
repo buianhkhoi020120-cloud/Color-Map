@@ -11,6 +11,8 @@ from PyQt5.QtGui import QPen, QBrush, QColor, QFont, QPainter, QPolygonF
 
 from algorithms.backtracking import solve_backtracking
 from algorithms.forward_checking import solve_forward_checking
+from algorithms.ac3 import solve_ac3
+from algorithms.min_conflicts import solve_min_conflicts
 
 COLORS_MAP = {"Đỏ": "#ff7675", "Xanh": "#55efc4", "Xanh dương": "#74b9ff", "Vàng": "#ffeaa7", "Tím": "#a29bfe"}
 
@@ -122,13 +124,17 @@ class PanelSimulator(QMainWindow):
         # ---- GIAO DIỆN CHỌN THUẬT TOÁN (SELECTABLE CARDS) ----
         self.algo_btn_bt = QPushButton("Backtracking")
         self.algo_btn_fc = QPushButton("Backtracking + FC")
+        self.algo_btn_ac3 = QPushButton("Backtracking + AC-3")
+        self.algo_btn_mc = QPushButton("Min-Conflicts")
         
         self.btn_group = QButtonGroup(self)
         self.btn_group.addButton(self.algo_btn_bt)
         self.btn_group.addButton(self.algo_btn_fc)
+        self.btn_group.addButton(self.algo_btn_ac3)
+        self.btn_group.addButton(self.algo_btn_mc)
         self.btn_group.buttonClicked.connect(self.reset_sim)
 
-        for btn in [self.algo_btn_bt, self.algo_btn_fc]:
+        for btn in [self.algo_btn_bt, self.algo_btn_fc, self.algo_btn_ac3, self.algo_btn_mc]:
             btn.setCheckable(True)
             btn.setFixedHeight(55)
             btn.setCursor(Qt.PointingHandCursor)
@@ -302,10 +308,13 @@ class PanelSimulator(QMainWindow):
         if not self.algo_generator:
             # Đọc xem nút thẻ nào đang được check
             if self.algo_btn_bt.isChecked():
-                algo_func = solve_backtracking 
+                algo_func = solve_backtracking
+            elif self.algo_btn_fc.isChecked():
+                algo_func = solve_forward_checking 
+            elif self.algo_btn_ac3.isChecked():
+                algo_func = solve_ac3
             else:
-                algo_func = solve_forward_checking
-                
+                algo_func = solve_min_conflicts
             self.algo_generator = algo_func(self.nodes, self.adj, list(COLORS_MAP.keys()))
             self.log_list.clear()
             
